@@ -1,11 +1,9 @@
 /target
-/build/images/*.png
-/build/json/*.json
+
 #all files in images directory
 /images/*
-/layers/*
+/my_layers/*
 
-!build/images
-!build/json
+
 #how can we include /build/images but not the  actual subfiles in it?
 
