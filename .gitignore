@@ -1,0 +1,5 @@
+/target
+/build/images/*
+/build/json/*
+#all files in images directory
+/images/*
