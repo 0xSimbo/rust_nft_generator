@@ -1,9 +1,8 @@
 /target
 
-#all files in images directory
 /images/*
 /my_layers/*
 
 
-#how can we include /build/images but not the  actual subfiles in it?
+
 
