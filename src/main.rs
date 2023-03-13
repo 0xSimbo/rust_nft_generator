@@ -1,9 +1,16 @@
-mod folder_searcher;
-mod image_gen;
-mod my_gen;
-
-mod layer;
-mod generator;
+mod utils {
+    pub mod folder_searcher;
+    pub mod my_gen;
+    pub mod image_gen;
+    pub mod layer;
+    pub mod generator;
+}
+// mod image_gen;
+// mod my_gen;
+use utils::generator::{Generator};
+use utils::layer::{Layer};
+// mod layer;
+// mod generator;
 
 //define a static stirng called description
 static DESCRIPTION: &'static str = "This is our super cool collection";
@@ -12,13 +19,13 @@ static END_TOKEN_ID: u32 = 10000;
 
 fn main() {
     let layers = vec![
-        layer::Layer::new(String::from("Backgrounds"),String::from("images/01_BACKGROUND")),
-        layer::Layer::new(String::from("Body"),String::from("images/02_BODY")),
-        layer::Layer::new(String::from("Clothing"),String::from("images/03_CLOTHING")),
-        layer::Layer::new(String::from("Glasses"),String::from("images/04_GLASSES")),
-        layer::Layer::new(String::from("Hats"),String::from("images/HATS")),
+        Layer::new(String::from("Backgrounds"),String::from("layers/01_BACKGROUND")),
+        Layer::new(String::from("Body"),String::from("layers/02_BODY")),
+        Layer::new(String::from("Clothing"),String::from("layers/03_CLOTHING")),
+        Layer::new(String::from("Glasses"),String::from("layers/04_GLASSES")),
+        Layer::new(String::from("Hats"),String::from("layers/HATS")),
     ];
 
-    let my_gen = generator::Generator::new(START_TOKEN_ID,END_TOKEN_ID,layers,DESCRIPTION);
+    let my_gen = Generator::new(START_TOKEN_ID,END_TOKEN_ID,layers,DESCRIPTION);
     my_gen.run_generation();
 }

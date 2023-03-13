@@ -1,7 +1,7 @@
 use std::io::Write;
 
-use crate::layer::Layer;
-use crate::image_gen::{generate};
+use crate::utils::layer::Layer;
+use crate::utils::image_gen::{generate};
 use serde_json::{json};
 use serde_json;
 use std::path::Path;

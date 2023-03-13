@@ -1,5 +1,5 @@
 
-use crate::folder_searcher::folderSearcher::{getAllFilesInsideFolder};
+use crate::utils::folder_searcher::folderSearcher::{getAllFilesInsideFolder};
 use rand;
 fn getDelimiter() -> char {
     return '#';

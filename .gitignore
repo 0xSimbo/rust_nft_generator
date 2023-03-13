@@ -3,3 +3,4 @@
 /build/json/*
 #all files in images directory
 /images/*
+/layers/*

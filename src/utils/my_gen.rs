@@ -1,5 +1,5 @@
 
-use crate::folder_searcher::folderSearcher::{getAllFilesInsideFolder};
+use crate::utils::folder_searcher::folderSearcher::{getAllFilesInsideFolder};
 
 fn getDelimiter() -> char {
     return '#';
