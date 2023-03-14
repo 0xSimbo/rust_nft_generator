@@ -33,16 +33,27 @@ Inspect the main file.
 
 ```rust
 fn main() {
+    utils::before_runtime::before_runtime();
+    let start_time = std::time::Instant::now();
     let layers = vec![
-        Layer::new(String::from("Backgrounds"),String::from("images/01_BACKGROUND")),
-        Layer::new(String::from("Body"),String::from("images/02_BODY")),
-        Layer::new(String::from("Clothing"),String::from("images/03_CLOTHING")),
-        Layer::new(String::from("Glasses"),String::from("images/04_GLASSES")),
-        Layer::new(String::from("Hats"),String::from("images/HATS")),
+        Layer::new(String::from("Backgrounds"),String::from("layers/Background")),
+        Layer::new(String::from("Bottom Lid"),String::from("layers/Bottom lid")),
+        Layer::new(String::from("Eye Color"),String::from("layers/Eye color")),
+        Layer::new(String::from("Eyeball"),String::from("layers/Eyeball")),
+        Layer::new(String::from("Goo"),String::from("layers/Goo")),
+        Layer::new(String::from("Iris"),String::from("layers/Iris")),
+        Layer::new(String::from("Shine"),String::from("layers/Shine")),
+        Layer::new(String::from("Top Lid"),String::from("layers/Top lid")),
+
+
     ];
 
     let my_gen = Generator::new(START_TOKEN_ID,END_TOKEN_ID,layers,DESCRIPTION);
     my_gen.run_generation();
+
+    let end_time = std::time::Instant::now();
+    let duration = end_time.duration_since(start_time);
+    println!("Time taken to generate {} images: {:?}",END_TOKEN_ID,duration);
 }
 ```
 
