@@ -16,6 +16,7 @@ use utils::layer::{Layer};
 
 //define a static stirng called description
 static DESCRIPTION: &'static str = "This is our super cool collection";
+static IMAGE_PREFIX: &'static str = "NFT";
 static START_TOKEN_ID: u32 = 1;
 static END_TOKEN_ID: u32 = 25;
 
@@ -35,7 +36,7 @@ fn main() {
 
     ];
 
-    let my_gen = Generator::new(START_TOKEN_ID,END_TOKEN_ID,layers,DESCRIPTION);
+    let my_gen = Generator::new(START_TOKEN_ID,END_TOKEN_ID,layers,DESCRIPTION,IMAGE_PREFIX);
     my_gen.run_generation();
 
     let end_time = std::time::Instant::now();

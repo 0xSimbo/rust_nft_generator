@@ -27,15 +27,17 @@ use num_cpus;
     layers: Vec<Layer>,
     //description is a reference to a static string
     description:  &'static str,
+    IMAGE_PREFIX: &'static str,
 }
 
 impl Generator {
-    pub fn new (start_token_id: u32, end_token_id: u32, layers: Vec<Layer>,description:&'static str) -> Self {
+    pub fn new (start_token_id: u32, end_token_id: u32, layers: Vec<Layer>,description:&'static str,IMAGE_PREFIX:&'static str) -> Self {
         Self {
             start_token_id,
             end_token_id,
             layers,
             description: description,
+            IMAGE_PREFIX: IMAGE_PREFIX,
         }
     }
 
@@ -120,6 +122,7 @@ impl Generator {
     pub fn run_generation(&self) {
         let num_cpus = num_cpus::get() as u32;
         let description = self.description;
+        let IMAGE_PREFIX = self.IMAGE_PREFIX;
         let num_cycles = (self.end_token_id - self.start_token_id) / num_cpus;
         let remainder = (self.end_token_id - self.start_token_id) % num_cpus;
 
@@ -142,7 +145,7 @@ impl Generator {
                 
                 
                     let json_file = json!({
-                        "name": format!("#{}",&curr_id),
+                        "name": format!("{} #{}",IMAGE_PREFIX,&curr_id),
                         "description": description,
                         "image": format!("ipfs://ipfsHash/{}.png",&curr_id),
                         "attributes": serde_json::to_string(&attributes).unwrap(),
@@ -178,7 +181,7 @@ impl Generator {
             
             
                 let json_file = json!({
-                    "name": format!("#{}",&curr_id),
+                    "name": format!("#{} {}",IMAGE_PREFIX,&curr_id),
                     "description": description,
                     "image": format!("ipfs://ipfsHash/{}.png",&curr_id),
                     "attributes": serde_json::to_string(&attributes).unwrap(),
