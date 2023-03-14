@@ -58,3 +58,22 @@ You then create a ```Generator``` and define a start token , end token, the laye
 The generation will start with start token and end with end token.
 
 Then, the execution of generation runs through the function ```rust my_gen.run_generation()```
+
+## Rarity
+
+Rarity works the same as in the hashlips repo.
+
+Each image should have "#x" after the filename. The x is the weight of the image in the overall generation.
+
+For example, let's say we have 3 images in a certain folder.
+
+1.  blue_hat#5.png
+2.  red_hat#4.png
+3.  special_hat#1.png
+
+The probability of blue_hat would be (5+4+1) /5 = 50% Chance.
+The probability of red_hat would be (5+4+1) / 4 = 40% Chance
+the probablity of special_hat would be (5+4+1)/1 = 10% Chance.
+
+
+Side Note: No Duplicates Can Be Generated From This Script
