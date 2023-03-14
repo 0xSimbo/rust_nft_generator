@@ -7,7 +7,6 @@ fn getDelimiter() -> char {
    pub fn getAllBackgrounds() -> Vec<String> {
       let backgrounds = getAllFilesInsideFolder("images/01_BACKGROUND");
       let mut bg_with_rarity:Vec<String> = Vec::new();
-      let mut index_in_backgrounds:u32 = 0;
       for i in backgrounds.iter() {
         if i.contains(getDelimiter()) {
             let split_fn:Vec<&str> = i.split("#").collect();
