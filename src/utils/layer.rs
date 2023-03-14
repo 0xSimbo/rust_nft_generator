@@ -20,7 +20,7 @@ impl Layer {
       for i in image_paths.iter() {
         if i.contains(getDelimiter()) {
             let split_fn:Vec<&str> = i.split("#").collect();
-            println!("split fn = {:?}",&split_fn);
+            // println!("split fn = {:?}",&split_fn);
             let temp:Vec<&str> = split_fn[1].split(".").collect();
             let num_times_to_append:u32 = temp[0].parse().unwrap();
 

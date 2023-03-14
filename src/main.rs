@@ -16,8 +16,8 @@ use utils::layer::{Layer};
 
 //define a static stirng called description
 static DESCRIPTION: &'static str = "This is our super cool collection";
-static START_TOKEN_ID: u32 = 0;
-static END_TOKEN_ID: u32 = 100;
+static START_TOKEN_ID: u32 = 1;
+static END_TOKEN_ID: u32 = 25;
 
 fn main() {
     utils::before_runtime::before_runtime();

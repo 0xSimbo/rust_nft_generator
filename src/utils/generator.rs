@@ -60,7 +60,7 @@ impl Generator {
         let mut image_data:Vec<ImageData> = Vec::new();
         let mut i = self.start_token_id;
         //loop from start id to end id
-        while i < self.end_token_id {
+        while i <= self.end_token_id {
             let mut random_image_intermediaries:Vec<Intermediary> = self.layers.iter().map(|layer| {
                 return Intermediary{
                     trait_type: layer.name.clone(),
@@ -121,6 +121,7 @@ impl Generator {
         let num_cpus = num_cpus::get() as u32;
         let description = self.description;
         let num_cycles = (self.end_token_id - self.start_token_id) / num_cpus;
+        let remainder = (self.end_token_id - self.start_token_id) % num_cpus;
 
         let start_token = self.start_token_id;
 
@@ -161,6 +162,40 @@ impl Generator {
                 thread.join().unwrap();
             }
       
+        }
+
+        let mut threads:Vec<std::thread::JoinHandle<()>> = Vec::new();
+
+        //GENERATE THE REMAINDER
+        let mut counter:u32 = 0;
+        for i in  self.end_token_id-remainder..=self.end_token_id {
+            println!("i = {}",i);
+            let curr_id = i;
+            let random_image_names = image_data[counter as usize].random_image_names.clone();
+            let attributes = image_data[counter as usize].attributes.clone();
+            let thread = std::thread::spawn(move || {
+                generate(format!("./build/images/{}.png",&curr_id).as_str(),random_image_names);
+            
+            
+                let json_file = json!({
+                    "name": format!("#{}",&curr_id),
+                    "description": description,
+                    "image": format!("ipfs://ipfsHash/{}.png",&curr_id),
+                    "attributes": serde_json::to_string(&attributes).unwrap(),
+                });
+
+                let serialized = serde_json::to_string_pretty(&json_file).unwrap();
+                let mut file = std::fs::File::create(format!("./build/json/{}.json",curr_id)).unwrap();
+                file.write(serialized.as_bytes()).unwrap();
+
+        
+            });
+            threads.push(thread);
+            counter = counter + 1;
+        };
+
+        for thread in threads {
+            thread.join().unwrap();
         }
         
 
