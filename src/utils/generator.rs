@@ -11,7 +11,10 @@ use serde_json::{json};
 use serde_json;
 use std::path::Path;
 
-
+struct Intermediary {
+    trait_type: String,
+    image_path: String,
+}
 use serde::{Serialize, Deserialize};
 struct ImageData {
     random_image_names: Vec<String>,
@@ -36,9 +39,7 @@ impl Generator {
         }
     }
 
-    // fn get_single_nft_data(&self) -> Vec<String> {
 
-    // }
     fn generate_all_images_metadata_and_check_duplicates(&self) -> Vec<ImageData> {
         let num_images_per_layer_as_vec = self.layers.iter().map(|layer| {
             layer.num_traits
@@ -60,17 +61,21 @@ impl Generator {
         let mut i = self.start_token_id;
         //loop from start id to end id
         while i < self.end_token_id {
-            let mut random_image_names = self.layers.iter().map(|layer| {
-                layer.get_random_image_path()
-            }).collect::<Vec<String>>();
+            let mut random_image_intermediaries:Vec<Intermediary> = self.layers.iter().map(|layer| {
+                return Intermediary{
+                    trait_type: layer.name.clone(),
+                    image_path: layer.get_random_image_path(),
+                }
+            }).collect::<Vec<Intermediary>>();
 
             let mut attributes:Vec<Attribute> = Vec::new();
             for j in 0..self.layers.len() {
                 //To find the name of the trait we need to split it on # and take the first element amd then split it on . and take the first element again 
-                let file_path = Path::new(&random_image_names[j]);
+                let file_path = Path::new(&random_image_intermediaries[j].image_path);
                 let file_name = String::from(file_path.file_name().unwrap().to_str().unwrap());
-                let trait_type = file_name.split("#").collect::<Vec<&str>>()[0].split(".").collect::<Vec<&str>>()[0];
-                let value = file_name.split("#").collect::<Vec<&str>>()[1].split(".").collect::<Vec<&str>>()[0];
+                let trait_type = &random_image_intermediaries[j].trait_type;
+                // let value = String::from("temp");
+                let value = file_name.split("#").collect::<Vec<&str>>()[0].split(".").collect::<Vec<&str>>()[0];
                 attributes.push(Attribute::new(String::from(trait_type),String::from(value)));
             }
 
@@ -88,6 +93,9 @@ impl Generator {
                 //     "image": format!("ipfs://{}",image_name),
                 //     "attributes": &attributes
                 // })).unwrap();
+                    let random_image_names = random_image_intermediaries.iter().map(|intermediary| {
+                        return intermediary.image_path.clone();
+                    }).collect::<Vec<String>>();
 
                 image_data.push(ImageData {
                     // image_name,
@@ -111,17 +119,13 @@ impl Generator {
     }
     pub fn run_generation(&self) {
         let num_cpus = num_cpus::get() as u32;
-        let mut threads: Vec<std::thread::JoinHandle<()>> = Vec::new();
         let description = self.description;
         let num_cycles = (self.end_token_id - self.start_token_id) / num_cpus;
-        // let mut start = self.start_token_id;
-        // let mut end = start + num_cycles;
+
         let start_token = self.start_token_id;
 
         let image_data = self.generate_all_images_metadata_and_check_duplicates();
-
         for  i in 0..num_cycles {
-
             let mut threads:Vec<std::thread::JoinHandle<()>> = Vec::new();
             
             for j in 0..num_cpus {
@@ -150,26 +154,18 @@ impl Generator {
             
                 });
                 threads.push(thread);
-
-                
-
-
-
             };
 
             
-            //Save the json
-
             for thread in threads {
                 thread.join().unwrap();
             }
-
       
         }
+        
 
-        for thread in threads {
-            thread.join().unwrap();
-        }
+
+ 
 
     }
 }
