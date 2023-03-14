@@ -1,6 +1,7 @@
 # A Blazingly Fast NFT Image Generator Written In Rust
 ## Author Twitter: @0xSimon
 
+### Disclaimer: Only PNG Files Supported. Will add support for other image types later
 This repo takes advantage of rust's multithreading and low level capability
 to provide a blazingly fast NFT Image and Metadata Generator
 
