@@ -8,6 +8,7 @@ pub struct Layer {
     pub name: String,
     folder_path: String,
     pub image_paths: Vec<String>,
+    pub num_traits: u32,
 
 }
 
@@ -37,6 +38,7 @@ impl Layer {
             name,
             folder_path,
             image_paths:image_paths_with_rarity,
+            num_traits: image_paths.len() as u32,
         }
     }
 

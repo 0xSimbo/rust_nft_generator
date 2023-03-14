@@ -4,4 +4,5 @@ mod utils {
     pub mod image_gen;
     pub mod layer;
     pub mod generator;
+    pub mod attribute;
 }
