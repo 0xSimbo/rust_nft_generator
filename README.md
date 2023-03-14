@@ -72,7 +72,9 @@ For example, let's say we have 3 images in a certain folder.
 3.  special_hat#1.png
 
 The probability of blue_hat would be (5+4+1) /5 = 50% Chance.
+
 The probability of red_hat would be (5+4+1) / 4 = 40% Chance
+
 the probablity of special_hat would be (5+4+1)/1 = 10% Chance.
 
 
