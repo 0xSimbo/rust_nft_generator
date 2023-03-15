@@ -1,7 +1,5 @@
-
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 use tiny_keccak::{Hasher, Keccak};
-
 
 #[derive(Serialize, Deserialize)]
 pub struct Attribute {
@@ -19,10 +17,7 @@ impl Clone for Attribute {
 }
 impl Attribute {
     pub fn new(trait_type: String, value: String) -> Self {
-        Self {
-            trait_type,
-            value,
-        }
+        Self { trait_type, value }
     }
     //implement clone
     pub fn clone(&self) -> Self {
@@ -48,6 +43,4 @@ pub fn hash_attributes(attributes: &Vec<Attribute>) -> String {
         hash.push_str(&format!("{:02x}", byte));
     }
     hash
-
 }
-

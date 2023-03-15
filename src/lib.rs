@@ -1,8 +1,8 @@
 mod utils {
+    pub mod attribute;
     pub mod folder_searcher;
-    pub mod my_gen;
+    pub mod generator;
     pub mod image_gen;
     pub mod layer;
-    pub mod generator;
-    pub mod attribute;
+    pub mod my_gen;
 }
