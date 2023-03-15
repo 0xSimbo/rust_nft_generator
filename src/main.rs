@@ -20,6 +20,9 @@ static START_TOKEN_ID: u32 = 500;
 static END_TOKEN_ID: u32 = 700;
 
 fn main() {
+    if START_TOKEN_ID > END_TOKEN_ID {
+        panic!("START_TOKEN_ID must be less than END_TOKEN_ID");
+    }
     utils::before_runtime::before_runtime();
     let start_time = std::time::Instant::now();
     let layers = vec![
@@ -52,6 +55,6 @@ fn main() {
     let duration = end_time.duration_since(start_time);
     println!(
         "Time taken to generate {} images: {:?}",
-        END_TOKEN_ID, duration
+        END_TOKEN_ID - START_TOKEN_ID, duration
     );
 }
