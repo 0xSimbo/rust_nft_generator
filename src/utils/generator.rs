@@ -134,9 +134,10 @@ impl Generator {
             
             for j in 0..num_cpus {
                 
-                let curr_id = (&num_cpus * &i)+ &j + &start_token;
-                let random_image_names = image_data[curr_id as usize].random_image_names.clone();
-                let attributes = image_data[curr_id as usize].attributes.clone();
+                let curr_id = (&num_cpus * &i)+ &j + start_token;
+                let position_in_index = curr_id - start_token;
+                let random_image_names = image_data[position_in_index as usize].random_image_names.clone();
+                let attributes = image_data[position_in_index as usize].attributes.clone();
             
 
       
