@@ -1,6 +1,6 @@
-use crate::utils::folder_searcher::folderSearcher::getAllFilesInsideFolder;
+use crate::utils::folder_searcher::folder_searcher::get_all_files_inside_folder;
 use rand;
-fn getDelimiter() -> char {
+fn get_delimiter() -> char {
     return '#';
 }
 pub struct Layer {
@@ -12,11 +12,11 @@ pub struct Layer {
 
 impl Layer {
     pub fn new(name: String, folder_path: String) -> Self {
-        let image_paths = getAllFilesInsideFolder(&folder_path);
+        let image_paths = get_all_files_inside_folder(&folder_path);
         let mut image_paths_with_rarity: Vec<String> = Vec::new();
         let mut index_in_backgrounds: u32 = 0;
         for i in image_paths.iter() {
-            if i.contains(getDelimiter()) {
+            if i.contains(get_delimiter()) {
                 let split_fn: Vec<&str> = i.split("#").collect();
                 // println!("split fn = {:?}",&split_fn);
                 let temp: Vec<&str> = split_fn[1].split(".").collect();

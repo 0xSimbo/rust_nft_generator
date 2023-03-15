@@ -5,7 +5,6 @@ mod utils {
     pub mod generator;
     pub mod image_gen;
     pub mod layer;
-    pub mod my_gen;
 }
 // mod image_gen;
 // mod my_gen;
